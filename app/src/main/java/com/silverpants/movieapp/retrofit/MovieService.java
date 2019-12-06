@@ -1,21 +1,25 @@
 package com.silverpants.movieapp.retrofit;
 
 import com.silverpants.movieapp.Keys;
-import com.silverpants.movieapp.pojo.Discover;
-import com.silverpants.movieapp.pojo.Movie;
 
-import retrofit2.Call;
-import retrofit2.http.GET;
-import retrofit2.http.Path;
-import retrofit2.http.Query;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
-public interface MovieService {
-    @GET("discover/movie?api_key=" + Keys.API_KEY)
-    Call<Discover> getDiscover(@Query(Keys.PAGE_QUERY) int page_no, @Query(Keys.PRIMARY_RELEASE_YEAR_QUERY) int year, @Query(Keys.SORT_BY_QUERY) String sort_by);
+public class MovieService {
+    private static Retrofit retrofit;
 
-    @GET("discover/movie?api_key=" + Keys.API_KEY + "&" + Keys.PRIMARY_RELEASE_YEAR_QUERY + "2019")
-    Call<Discover> getDiscover(@Query(Keys.PAGE_QUERY) int page_no);
+    public static Retrofit getRetrofit() {
+        if (retrofit == null) {
+            synchronized (MovieService.class) {
+                if (retrofit == null) {
+                    retrofit = new retrofit2.Retrofit.Builder()
+                            .baseUrl(Keys.BASE_URL)
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .build();
+                }
+            }
+        }
+        return retrofit;
+    }
 
-    @GET("movie/{movie_id}?api_key=" + Keys.API_KEY)
-    Call<Movie> getMovie(@Path("movie_id") int id);
 }

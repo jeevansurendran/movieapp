@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
@@ -17,6 +18,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textview.MaterialAutoCompleteTextView;
 import com.silverpants.movieapp.adapter.MovieAdapter;
+import com.silverpants.movieapp.retrofit.MovieRepository;
 import com.silverpants.movieapp.viewmodel.MovieViewModel;
 
 public class MovieActivity extends AppCompatActivity {
@@ -61,6 +63,8 @@ public class MovieActivity extends AppCompatActivity {
                         return;
                     }
                     movieAdapter.getCurrentList().getDataSource().invalidate();
+                    model.dataInvalidate();
+
                     Toast.makeText(this, "" + mSortByField.getText().toString(), Toast.LENGTH_SHORT).show();
                     int index = 0;
                     for (int i = 0; i < sortBy.length; i++) {
@@ -80,6 +84,7 @@ public class MovieActivity extends AppCompatActivity {
         );
 
         model.getDiscover().observe(this, (resultPagedList) -> {
+            Log.d("BLAH","one bro");
             movieAdapter.submitList(resultPagedList);
             mMovieRecycler.setAdapter(movieAdapter);
 
