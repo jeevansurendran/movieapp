@@ -7,7 +7,7 @@ public class Keys {
     //image
     public static final String IMAGE_URL = "https://image.tmdb.org/t/p/";
     public static final String SIZE_1 = "w342";
-    public static final String DUMMY_IMAGE ="https://image.tmdb.org/t/p/w500/n6bUvigpRFqSwmPp1m2YADdbRBc.jpg";
+    public static final String DUMMY_IMAGE ="https://image.tmdb.org/t/p/w780/7RyHsO4yDXtBv1zUU3mTpHeQ0d5.jpg";
 
     //query
     public static final String PAGE_QUERY = "page";
@@ -27,6 +27,6 @@ public class Keys {
     };
 
     //path values
-    public static final int INFINITY_WAR = 299536;
+    public static final int ENDGAME = 299534;
 
 }

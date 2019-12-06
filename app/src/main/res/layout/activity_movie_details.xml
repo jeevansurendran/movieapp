@@ -18,7 +18,7 @@
             app:expandedTitleGravity="top"
             app:expandedTitleMarginStart="@dimen/shrine_toolbar_offset_start"
             app:expandedTitleMarginTop="@dimen/shrine_toolbar_offset_top"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <ImageView
                 android:id="@+id/details_background"
