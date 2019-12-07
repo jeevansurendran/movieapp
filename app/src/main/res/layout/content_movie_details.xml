@@ -183,7 +183,7 @@
             app:layout_constraintTop_toBottomOf="@+id/details_original_language" />
 
         <TextView
-            android:id="@+id/details_director_name"
+            android:id="@+id/details_director"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -200,7 +200,7 @@
             android:layout_marginTop="8dp"
             android:text="Budget"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/details_director_name" />
+            app:layout_constraintTop_toBottomOf="@+id/details_director" />
 
         <TextView
             android:id="@+id/details_budget"

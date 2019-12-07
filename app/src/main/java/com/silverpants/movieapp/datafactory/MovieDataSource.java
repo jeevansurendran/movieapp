@@ -4,9 +4,8 @@ package com.silverpants.movieapp.datafactory;
 import com.silverpants.movieapp.Keys;
 import com.silverpants.movieapp.pojo.Discover;
 import com.silverpants.movieapp.pojo.Result;
-import com.silverpants.movieapp.retrofit.MovieRepository;
-import com.silverpants.movieapp.retrofit.MovieService;
-import com.silverpants.movieapp.retrofit.MovieApi;
+import com.silverpants.movieapp.retrofit.RetroFitRepository;
+import com.silverpants.movieapp.retrofit.RetroFitApi;
 
 import java.util.List;
 
@@ -20,7 +19,7 @@ public class MovieDataSource extends PageKeyedDataSource<Integer, Result> {
 
     private int year;
     private String sort_by;
-    private MovieApi service;
+    private RetroFitApi service;
 
     public MovieDataSource() {
         this(2019, Keys.SORT_BY_VALUES[0]);
@@ -29,7 +28,7 @@ public class MovieDataSource extends PageKeyedDataSource<Integer, Result> {
     public MovieDataSource(int year, String sort_by) {
         this.year = year;
         this.sort_by = sort_by;
-        service = MovieRepository.getInstance().getMovieApi();
+        service = RetroFitRepository.getInstance().getRetroFitApi();
     }
 
 

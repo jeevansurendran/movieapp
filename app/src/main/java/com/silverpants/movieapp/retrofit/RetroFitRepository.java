@@ -17,30 +17,30 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MovieRepository {
+public class RetroFitRepository {
 
-    private static MovieRepository movieRepository;
-    private MovieApi movieApi;
+    private static RetroFitRepository retroFitRepository;
+    private RetroFitApi retroFitApi;
 
-    public MovieApi getMovieApi() {
-        return movieApi;
+    public RetroFitApi getRetroFitApi() {
+        return retroFitApi;
     }
 
     MovieDataSourceFactory dataSourceFactory;
     Executor executor;
 
-    public static MovieRepository getInstance() {
+    public static RetroFitRepository getInstance() {
 
-        if (movieRepository == null) {
-            synchronized (MovieRepository.class) {
-                movieRepository = new MovieRepository();
+        if (retroFitRepository == null) {
+            synchronized (RetroFitRepository.class) {
+                retroFitRepository = new RetroFitRepository();
             }
         }
-        return movieRepository;
+        return retroFitRepository;
     }
 
-    private MovieRepository() {
-        movieApi = MovieService.getRetrofit().create(MovieApi.class);
+    private RetroFitRepository() {
+        retroFitApi = RetroFitService.getRetrofit().create(RetroFitApi.class);
     }
 
 
@@ -76,16 +76,18 @@ public class MovieRepository {
 
     public LiveData<Movie> getMovie(int movie_id) {
         MutableLiveData<Movie> movieMutableLiveData = new MutableLiveData<>();
-        Call<Movie> movie = movieApi.getMovie(movie_id);
+
+        Call<Movie> movie = retroFitApi.getMovie(movie_id);
         movie.enqueue(new Callback<Movie>() {
             @Override
             public void onResponse(Call<Movie> call, Response<Movie> response) {
+                Log.d("BLAH", "onResponse: bro");
                 movieMutableLiveData.setValue(response.body());
             }
 
             @Override
             public void onFailure(Call<Movie> call, Throwable t) {
-                movieMutableLiveData.setValue(null);
+                Log.d("BLAH", "onFailure: "+"wtf yo");
 
             }
         });

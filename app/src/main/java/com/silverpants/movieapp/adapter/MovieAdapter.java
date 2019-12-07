@@ -49,7 +49,7 @@ public class MovieAdapter extends PagedListAdapter<Result, MovieAdapter.MovieVie
         holder.mTitle.setText(getItem(position).getTitle());
         holder.mOverView.setText(getItem(position).getOverview());
         holder.mVoteAverage.setText(getItem(position).getVoteAverage().toString());
-        Glide.with(holder.mImage.getContext()).load(Keys.IMAGE_URL + Keys.SIZE_1 + getItem(position).getPosterPath()).into(holder.mImage);
+        Glide.with(holder.mImage.getContext()).load(Keys.IMAGE_URL + Keys.IMAGE_SIZE_1 + getItem(position).getPosterPath()).into(holder.mImage);
     }
 
     public static class MovieViewHolder extends RecyclerView.ViewHolder {

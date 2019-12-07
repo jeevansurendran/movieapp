@@ -1,9 +1,7 @@
 package com.silverpants.movieapp.viewmodel;
 
-import android.util.Log;
-
 import com.silverpants.movieapp.pojo.Result;
-import com.silverpants.movieapp.retrofit.MovieRepository;
+import com.silverpants.movieapp.retrofit.RetroFitRepository;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
@@ -14,15 +12,15 @@ public class MovieViewModel extends ViewModel {
 
 
     private LiveData<PagedList<Result>> discoverList;
-    MovieRepository movieRepository;
+    RetroFitRepository retroFitRepository;
 
     public MovieViewModel() {
-        movieRepository = MovieRepository.getInstance();
+        retroFitRepository = RetroFitRepository.getInstance();
     }
 
     public LiveData<PagedList<Result>> getDiscover() {
         if (discoverList == null) {
-            discoverList = movieRepository.getDiscover();
+            discoverList = retroFitRepository.getDiscover();
         }
         return discoverList;
     }
@@ -30,7 +28,7 @@ public class MovieViewModel extends ViewModel {
 
     public LiveData<PagedList<Result>> getDiscover(int year, String sort_by) {
         if (discoverList == null) {
-            discoverList = movieRepository.getDiscover(year, sort_by);
+            discoverList = retroFitRepository.getDiscover(year, sort_by);
         }
         return discoverList;
     }

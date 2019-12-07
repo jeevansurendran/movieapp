@@ -18,7 +18,6 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textview.MaterialAutoCompleteTextView;
 import com.silverpants.movieapp.adapter.MovieAdapter;
-import com.silverpants.movieapp.retrofit.MovieRepository;
 import com.silverpants.movieapp.viewmodel.MovieViewModel;
 
 public class MovieActivity extends AppCompatActivity {
