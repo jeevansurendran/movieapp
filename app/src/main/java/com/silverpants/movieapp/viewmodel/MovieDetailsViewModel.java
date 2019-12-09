@@ -16,9 +16,9 @@ public class MovieDetailsViewModel extends ViewModel {
         retroFitRepository = RetroFitRepository.getInstance();
     }
 
-    public LiveData<Movie> getMovie() {
+    public LiveData<Movie> getMovie(int id) {
         if (movieLiveData == null) {
-            movieLiveData = retroFitRepository.getMovie(Keys.JOKER);
+            movieLiveData = retroFitRepository.getMovie(id);
         }
         return movieLiveData;
     }

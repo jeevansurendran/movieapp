@@ -1,5 +1,6 @@
 package com.silverpants.movieapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,7 +18,7 @@ import android.widget.Toast;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textview.MaterialAutoCompleteTextView;
-import com.silverpants.movieapp.adapter.MovieAdapter;
+import com.silverpants.movieapp.recycler.MovieAdapter;
 import com.silverpants.movieapp.viewmodel.MovieViewModel;
 
 public class MovieActivity extends AppCompatActivity {
@@ -82,6 +83,11 @@ public class MovieActivity extends AppCompatActivity {
                 }
         );
 
+        movieAdapter.setMovieClickListener((movie_id -> {
+            Intent intent = new Intent(MovieActivity.this, MovieDetailsActivity.class);
+            intent.putExtra("movie_id", movie_id);
+            startActivity(intent);
+        }));
         model.getDiscover().observe(this, (resultPagedList) -> {
             Log.d("BLAH","one bro");
             movieAdapter.submitList(resultPagedList);

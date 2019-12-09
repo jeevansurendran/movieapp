@@ -6,7 +6,8 @@ public class Keys {
 
     //image
     public static final String IMAGE_URL = "https://image.tmdb.org/t/p/";
-    public static final String IMAGE_SIZE = "w780";
+    public static final String DUMMY_IMAGE_LINK = "https://image.tmdb.org/t/p/w500/7RyHsO4yDXtBv1zUU3mTpHeQ0d5.jpg";
+    public static final String IMAGE_SIZE = "w500";
     public static final String IMAGE_SIZE_1 = "w500";
 
     //query
@@ -26,12 +27,14 @@ public class Keys {
             "title.desc",
     };
 
+
     public static String getImageUrl(String id) {
         return IMAGE_URL + IMAGE_SIZE + id;
 
     }
 
-    //path values
+    //fake real values
     public static final int JOKER = 475557;
-
+    public static final int ENDGAME = 299534;
+    public static final int FROZEN2 = 330457;
 }

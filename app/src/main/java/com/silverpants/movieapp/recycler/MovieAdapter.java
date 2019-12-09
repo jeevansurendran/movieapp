@@ -1,5 +1,6 @@
-package com.silverpants.movieapp.adapter;
+package com.silverpants.movieapp.recycler;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class MovieAdapter extends PagedListAdapter<Result, MovieAdapter.MovieViewHolder> {
 
+    MovieClickListener movieClickListener;
+
+
+    public void setMovieClickListener(MovieClickListener movieClickListener) {
+        this.movieClickListener = movieClickListener;
+    }
+
     public MovieAdapter() {
         super(new DiffUtil.ItemCallback<Result>() {
             @Override
@@ -31,6 +39,7 @@ public class MovieAdapter extends PagedListAdapter<Result, MovieAdapter.MovieVie
                 return true;
             }
         });
+
 
     }
 
@@ -49,16 +58,24 @@ public class MovieAdapter extends PagedListAdapter<Result, MovieAdapter.MovieVie
         holder.mTitle.setText(getItem(position).getTitle());
         holder.mOverView.setText(getItem(position).getOverview());
         holder.mVoteAverage.setText(getItem(position).getVoteAverage().toString());
+
         Glide.with(holder.mImage.getContext()).load(Keys.IMAGE_URL + Keys.IMAGE_SIZE_1 + getItem(position).getPosterPath()).into(holder.mImage);
+        Log.d("blah", "onBindViewHolder: yes insdie blah");
+        holder.mImage.setOnClickListener((view) -> {
+            if (movieClickListener != null) {
+                movieClickListener.onClick(getItem(position).getId());
+            }
+        });
     }
 
-    public static class MovieViewHolder extends RecyclerView.ViewHolder {
+    public class MovieViewHolder extends RecyclerView.ViewHolder {
 
         public ImageView mImage;
         public TextView mReleaseDate;
         public TextView mTitle;
         public TextView mOverView;
         public TextView mVoteAverage;
+        public View itemView;
 
         public MovieViewHolder(@NonNull View itemView) {
             super(itemView);

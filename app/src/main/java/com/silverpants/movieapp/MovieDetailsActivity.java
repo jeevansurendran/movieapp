@@ -18,16 +18,17 @@ import androidx.lifecycle.ViewModelProviders;
 public class MovieDetailsActivity extends AppCompatActivity {
 
     private ImageView mBackgroundImage;
-    private CollapsingToolbarLayout mCollapsingToolBarLayout;
     private TextView mTitle;
     private TextView mrReleaseDate;
     private TextView mVoteAverage;
     private TextView mOverView;
     private TextView mOriginalTitle;
     private TextView mOriginalLanguage;
+    private CollapsingToolbarLayout mCollapsingLayoutToolbar;
     private TextView mOriginalDirector;
     private TextView mBudget;
     private TextView mRevenue;
+    private int id = Keys.FROZEN2;
 
 
     @Override
@@ -35,6 +36,10 @@ public class MovieDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_details);
+
+        if (getIntent() != null) {
+            id = getIntent().getIntExtra("movie_id", Keys.FROZEN2);
+        }
         init();
 
 
@@ -47,7 +52,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("");
 
         mBackgroundImage = findViewById(R.id.details_background);
-        mCollapsingToolBarLayout = findViewById(R.id.details_collapsing_toolbar);
+        mCollapsingLayoutToolbar = findViewById(R.id.details_collapsing_toolbar);
 
         mTitle = findViewById(R.id.details_title);
         mrReleaseDate = findViewById(R.id.details_release_date);
@@ -58,25 +63,23 @@ public class MovieDetailsActivity extends AppCompatActivity {
         mOriginalDirector = findViewById(R.id.details_director);
         mBudget = findViewById(R.id.details_budget);
         mRevenue = findViewById(R.id.details_revenue);
+        Glide.with(this).load(Keys.DUMMY_IMAGE_LINK).into(mBackgroundImage);
 
 
         MovieDetailsViewModel model = ViewModelProviders.of(this).get(MovieDetailsViewModel.class);
 
-        model.getMovie().observe(this, (movie) -> {
+        model.getMovie(id).observe(this, (movie) -> {
             mTitle.setText(movie.getTitle());
             mrReleaseDate.setText(movie.getReleaseDate());
             mVoteAverage.setText(Double.toString(movie.getVoteAverage()));
             mOverView.setText(movie.getOverview());
             mOriginalTitle.setText(movie.getOriginalTitle());
             mOriginalLanguage.setText(movie.getOriginalLanguage());
-            Log.d("BLAH",movie.getBudget()+"  " + movie.getRevenue());
-            mBudget.setText(movie.getBudget()+"");
-            mRevenue.setText(movie.getRevenue()+"");
+            Log.d("BLAH", "keys : " + Keys.DUMMY_IMAGE_LINK);
+            mBudget.setText(movie.getBudget() + "");
+            mRevenue.setText(movie.getRevenue() + "");
             Glide.with(this).load(Keys.getImageUrl(movie.getBackdropPath())).into(mBackgroundImage);
         });
-
-
-
 
 
     }
