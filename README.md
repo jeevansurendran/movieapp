@@ -16,7 +16,7 @@ and also implements [Jetpack Components](https://developer.android.com/jetpack) 
 [Paging Library](https://developer.android.com/topic/libraries/architecture/paging) and 
 [Material Design](https://material.io/). 
 It's code is implemented based on the [Reposoitory Pattern](https://msdn.microsoft.com/en-us/library/ff649690.aspx)
- and built to add in new components easily.
+ and its patten is built in such a way that its east to add in new components.
 
 
  
