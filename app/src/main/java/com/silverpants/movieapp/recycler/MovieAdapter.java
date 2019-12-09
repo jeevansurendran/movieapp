@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.silverpants.movieapp.Keys;
 import com.silverpants.movieapp.R;
-import com.silverpants.movieapp.pojo.Result;
+import com.silverpants.movieapp.pojo.discover.Result;
 
 
 import androidx.annotation.NonNull;

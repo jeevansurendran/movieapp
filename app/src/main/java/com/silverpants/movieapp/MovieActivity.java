@@ -1,141 +1,86 @@
 package com.silverpants.movieapp;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+
+import com.bumptech.glide.Glide;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.silverpants.movieapp.viewmodel.MovieDetailsViewModel;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.ArrayAdapter;
-import android.widget.Toast;
-
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textview.MaterialAutoCompleteTextView;
-import com.silverpants.movieapp.recycler.MovieAdapter;
-import com.silverpants.movieapp.viewmodel.MovieViewModel;
 
 public class MovieActivity extends AppCompatActivity {
 
+    private ImageView mBackgroundImage;
+    private TextView mTitle;
+    private TextView mrReleaseDate;
+    private TextView mVoteAverage;
+    private TextView mOverView;
+    private TextView mOriginalTitle;
+    private TextView mOriginalLanguage;
+    private CollapsingToolbarLayout mCollapsingLayoutToolbar;
+    private TextView mOriginalDirector;
+    private TextView mBudget;
+    private TextView mRevenue;
+    private int id = Keys.FROZEN2;
 
-    private RecyclerView mMovieRecycler;
-    private MovieAdapter movieAdapter;
-    private TextInputEditText mYearField;
-    private MaterialAutoCompleteTextView mSortByField;
-    private MaterialButton mApplyButton;
 
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
+        if (getIntent() != null) {
+            id = getIntent().getIntExtra("movie_id", Keys.FROZEN2);
+        }
         init();
+
 
     }
 
-
     private void init() {
-        mMovieRecycler = findViewById(R.id.movie_item_list);
-        LinearLayoutManager manager = new LinearLayoutManager(this);
-        mMovieRecycler.setLayoutManager(manager);
-        movieAdapter = new MovieAdapter();
-        mApplyButton = findViewById(R.id.movie_apply_button);
-        mYearField = findViewById(R.id.movie_year_field);
-        mSortByField = findViewById(R.id.movie_sortby_field);
+        Toolbar toolbar = findViewById(R.id.details_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("");
 
-        String[] sortBy = getResources().getStringArray(R.array.movie_sortby);
+        mBackgroundImage = findViewById(R.id.details_background);
+        mCollapsingLayoutToolbar = findViewById(R.id.details_collapsing_toolbar);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.movie_dropdown_menu_popup_item, sortBy);
+        mTitle = findViewById(R.id.details_title);
+        mrReleaseDate = findViewById(R.id.details_release_date);
+        mVoteAverage = findViewById(R.id.details_vote_average);
+        mOverView = findViewById(R.id.details_overview);
+        mOriginalTitle = findViewById(R.id.details_original_title);
+        mOriginalLanguage = findViewById(R.id.details_original_language);
+        mOriginalDirector = findViewById(R.id.details_director);
+        mBudget = findViewById(R.id.details_budget);
+        mRevenue = findViewById(R.id.details_revenue);
+        Glide.with(this).load(Keys.DUMMY_IMAGE_LINK).into(mBackgroundImage);
 
-        mSortByField.setAdapter(adapter);
 
-        MovieViewModel model = ViewModelProviders.of(this).get(MovieViewModel.class);
+        MovieDetailsViewModel model = ViewModelProviders.of(this).get(MovieDetailsViewModel.class);
 
-        mApplyButton.setOnClickListener((v) -> {
-                    if (!movieValidateForm()) {
-                        return;
-                    }
-                    movieAdapter.getCurrentList().getDataSource().invalidate();
-                    model.dataInvalidate();
-
-                    Toast.makeText(this, "" + mSortByField.getText().toString(), Toast.LENGTH_SHORT).show();
-                    int index = 0;
-                    for (int i = 0; i < sortBy.length; i++) {
-                        if (sortBy[i].equals(mSortByField.getText().toString())) {
-                            index = i;
-                            break;
-                        }
-                    }
-
-                    model.getDiscover(Integer.parseInt(mYearField.getText().toString()), Keys.SORT_BY_VALUES[index]).observe(MovieActivity.this, (resultPagedList) -> {
-                        movieAdapter.submitList(resultPagedList);
-                        mMovieRecycler.setAdapter(movieAdapter);
-
-                    });
-
-                }
-        );
-
-        movieAdapter.setMovieClickListener((movie_id -> {
-            Intent intent = new Intent(MovieActivity.this, MovieDetailsActivity.class);
-            intent.putExtra("movie_id", movie_id);
-            startActivity(intent);
-        }));
-        model.getDiscover().observe(this, (resultPagedList) -> {
-            Log.d("BLAH","one bro");
-            movieAdapter.submitList(resultPagedList);
-            mMovieRecycler.setAdapter(movieAdapter);
-
+        model.getMovie(id).observe(this, (movie) -> {
+            mTitle.setText(movie.getTitle());
+            mrReleaseDate.setText(movie.getReleaseDate());
+            mVoteAverage.setText(Double.toString(movie.getVoteAverage()));
+            mOverView.setText(movie.getOverview());
+            mOriginalTitle.setText(movie.getOriginalTitle());
+            mOriginalLanguage.setText(movie.getOriginalLanguage());
+            Log.d("BLAH", "keys : " + Keys.DUMMY_IMAGE_LINK);
+            mBudget.setText(movie.getBudget() + "");
+            mRevenue.setText(movie.getRevenue() + "");
+            Glide.with(this).load(Keys.getImageUrl(movie.getBackdropPath())).into(mBackgroundImage);
         });
 
 
-    }
-
-    boolean movieValidateForm() {
-        if (mYearField.getText().toString().equals("")) {
-            mYearField.setError("Enter Valid Year");
-            return false;
-        }
-        try {
-            Integer.parseInt(mYearField.getText().toString());
-
-        } catch (NumberFormatException e) {
-            mYearField.setError("Enter Valid Year");
-            return false;
-        }
-        if (mSortByField.getText().toString().equals("")) {
-            Toast.makeText(this, "Select Sorting Option", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_movie, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 }

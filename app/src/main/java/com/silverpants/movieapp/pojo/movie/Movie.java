@@ -1,5 +1,5 @@
 
-package com.silverpants.movieapp.pojo;
+package com.silverpants.movieapp.pojo.movie;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;

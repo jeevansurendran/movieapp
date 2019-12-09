@@ -1,7 +1,7 @@
 package com.silverpants.movieapp.datafactory;
 
 
-import com.silverpants.movieapp.pojo.Result;
+import com.silverpants.movieapp.pojo.discover.Result;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;

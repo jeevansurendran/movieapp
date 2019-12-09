@@ -1,6 +1,6 @@
 package com.silverpants.movieapp.viewmodel;
 
-import com.silverpants.movieapp.pojo.Result;
+import com.silverpants.movieapp.pojo.discover.Result;
 import com.silverpants.movieapp.retrofit.RetroFitRepository;
 
 import androidx.lifecycle.LiveData;

@@ -2,8 +2,8 @@ package com.silverpants.movieapp.datafactory;
 
 
 import com.silverpants.movieapp.Keys;
-import com.silverpants.movieapp.pojo.Discover;
-import com.silverpants.movieapp.pojo.Result;
+import com.silverpants.movieapp.pojo.discover.Discover;
+import com.silverpants.movieapp.pojo.discover.Result;
 import com.silverpants.movieapp.retrofit.RetroFitRepository;
 import com.silverpants.movieapp.retrofit.RetroFitApi;
 

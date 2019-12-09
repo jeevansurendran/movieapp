@@ -3,8 +3,8 @@ package com.silverpants.movieapp.retrofit;
 import android.util.Log;
 
 import com.silverpants.movieapp.datafactory.MovieDataSourceFactory;
-import com.silverpants.movieapp.pojo.Movie;
-import com.silverpants.movieapp.pojo.Result;
+import com.silverpants.movieapp.pojo.movie.Movie;
+import com.silverpants.movieapp.pojo.discover.Result;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;

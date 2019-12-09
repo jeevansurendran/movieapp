@@ -1,8 +1,8 @@
 package com.silverpants.movieapp.retrofit;
 
 import com.silverpants.movieapp.Keys;
-import com.silverpants.movieapp.pojo.Discover;
-import com.silverpants.movieapp.pojo.Movie;
+import com.silverpants.movieapp.pojo.discover.Discover;
+import com.silverpants.movieapp.pojo.movie.Movie;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

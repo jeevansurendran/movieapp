@@ -13,7 +13,6 @@
         <item>A-Z</item>
         <item>Z-A</item>
     </string-array>
-    <string name="title_activity_movie_details">MovieDetailsActivity</string>
+    <string name="title_activity_movie">MoviesActivity</string>
     <string name="movie_dummy_description">hola</string>
-    <string name="title_activity_details">DetailsActivity</string>
 </resources>
