@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
-import com.silverpants.movieapp.viewmodel.MovieDetailsViewModel;
+import com.silverpants.movieapp.viewmodel.MovieViewModel;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -66,7 +66,7 @@ public class MovieActivity extends AppCompatActivity {
         Glide.with(this).load(Keys.DUMMY_IMAGE_LINK).into(mBackgroundImage);
 
 
-        MovieDetailsViewModel model = ViewModelProviders.of(this).get(MovieDetailsViewModel.class);
+        MovieViewModel model = ViewModelProviders.of(this).get(MovieViewModel.class);
 
         model.getMovie(id).observe(this, (movie) -> {
             mTitle.setText(movie.getTitle());

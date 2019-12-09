@@ -19,7 +19,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textview.MaterialAutoCompleteTextView;
 import com.silverpants.movieapp.recycler.MovieAdapter;
-import com.silverpants.movieapp.viewmodel.MovieViewModel;
+import com.silverpants.movieapp.viewmodel.DiscoverViewModel;
 
 public class DiscoverActivity extends AppCompatActivity {
 
@@ -56,7 +56,7 @@ public class DiscoverActivity extends AppCompatActivity {
 
         mSortByField.setAdapter(adapter);
 
-        MovieViewModel model = ViewModelProviders.of(this).get(MovieViewModel.class);
+        DiscoverViewModel model = ViewModelProviders.of(this).get(DiscoverViewModel.class);
 
         mApplyButton.setOnClickListener((v) -> {
                     if (!movieValidateForm()) {
