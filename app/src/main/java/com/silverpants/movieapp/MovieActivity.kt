@@ -69,7 +69,7 @@ class MovieActivity : AppCompatActivity() {
 
         val model = ViewModelProviders.of(this)[MovieViewModel::class.java]
 
-        model.getMovie(id).observe(this, Observer<Movie> { movie ->
+        model.getMovie(id)?.observe(this, Observer<Movie> {movie ->
             mCollapsingLayoutToolbar.title = movie.title
             mTitle.text = movie.title
             mrReleaseDate.text = movie.releaseDate

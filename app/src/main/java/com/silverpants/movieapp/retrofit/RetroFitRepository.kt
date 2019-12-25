@@ -1,5 +1,6 @@
 package com.silverpants.movieapp.retrofit
 
+import android.util.Log
 import com.silverpants.movieapp.datafactory.MovieDataSourceFactory
 import com.silverpants.movieapp.pojo.movie.Movie
 import com.silverpants.movieapp.pojo.discover.Result
@@ -11,6 +12,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
+import com.silverpants.movieapp.FROZEN2
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -45,15 +47,19 @@ object RetroFitRepository {
     }
 
     fun getMovie(movie_id: Int): LiveData<Movie> {
+
         val movieMutableLiveData = MutableLiveData<Movie>()
 
         val movie = retroFitApi.getMovie(movie_id)
         movie.enqueue(object : Callback<Movie> {
             override fun onResponse(call: Call<Movie>, response: Response<Movie>) {
+                Log.d("HELLO", "hmmmmmmmmm $movie_id ${response.body().toString()}")
                 movieMutableLiveData.value = response.body()
+
             }
 
             override fun onFailure(call: Call<Movie>, t: Throwable) {
+                Log.d("HELLO", "brruhhhh")
             }
         })
         return movieMutableLiveData
