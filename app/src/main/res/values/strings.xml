@@ -15,4 +15,9 @@
     </string-array>
     <string name="title_activity_movie">MoviesActivity</string>
     <string name="movie_dummy_description">hola</string>
+    <string name="backdrop">backdrop</string>
+    <string name="joker">Joker</string>
+    <string name="description">Description</string>
+    <string name="mad_man_doing_crazy_shit">Mad Man doing crazy shit</string>
+    <string name="genres">Genres</string>
 </resources>

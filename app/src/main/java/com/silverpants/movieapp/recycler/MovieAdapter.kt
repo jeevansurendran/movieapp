@@ -1,22 +1,21 @@
 package com.silverpants.movieapp.recycler
 
-import android.util.Log
+import android.icu.text.Transliterator
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.RatingBar
 import android.widget.TextView
 
 import com.bumptech.glide.Glide
-import com.silverpants.movieapp.R
 import com.silverpants.movieapp.pojo.discover.Result
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.silverpants.movieapp.FROZEN2
-
-import com.silverpants.movieapp.IMAGE_SIZE_1
-import com.silverpants.movieapp.IMAGE_URL
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
+import com.silverpants.movieapp.*
 
 class MovieAdapter : PagedListAdapter<Result, MovieAdapter.MovieViewHolder>(
 
@@ -47,15 +46,25 @@ class MovieAdapter : PagedListAdapter<Result, MovieAdapter.MovieViewHolder>(
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        holder.mReleaseDate.text = getItem(position)!!.releaseDate
-        holder.mTitle.text = getItem(position)!!.title
-        holder.mOverView.text = getItem(position)!!.overview
-        holder.mVoteAverage.text = getItem(position)!!.voteAverage!!.toString()
+        val result = getItem(position)
 
-        Glide.with(holder.mImage.context).load(IMAGE_URL + IMAGE_SIZE_1 + getItem(position)!!.posterPath).into(holder.mImage)
-        Log.d("blah", "onBindViewHolder: yes insdie blah")
+        Glide.with(holder.mBackgroundImage.context).load(IMAGE_URL + IMAGE_SIZE_1 + result?.backdropPath).into(holder.mBackgroundImage)
+        holder.mTitleField.text = result?.title
+        holder.mDescriptionField.text = result?.overview
+        holder.mRatingBar.rating = result?.voteAverage?.toFloat()?.div(2) ?: 0.0f
 
-        holder.mImage.setOnClickListener {
+        holder.genres.removeAllViews()
+        result?.genreIds?.iterator()?.forEach {
+            val chip = Chip(holder.genres.context)
+            chip.text = genres[it]
+            chip.isClickable = true
+            chip.isActivated = true
+            holder.genres.addView(chip)
+        }
+        
+
+
+        holder.mBackgroundImage.setOnClickListener {
             movieClickListener?.onClick(getItem(position)?.id ?: FROZEN2)
         }
     }
@@ -63,11 +72,11 @@ class MovieAdapter : PagedListAdapter<Result, MovieAdapter.MovieViewHolder>(
 
     inner class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        var mImage: ImageView = itemView.findViewById(R.id.movie_image)
-        var mReleaseDate: TextView = itemView.findViewById(R.id.movie_release_date)
-        var mTitle: TextView = itemView.findViewById(R.id.movie_title)
-        var mOverView: TextView = itemView.findViewById(R.id.movie_overview)
-        var mVoteAverage: TextView = itemView.findViewById(R.id.movie_vote_average)
+        val mBackgroundImage: ImageView = itemView.findViewById(R.id.movie_background)
+        val mTitleField : TextView = itemView.findViewById(R.id.movie_title)
+        val mRatingBar :RatingBar = itemView.findViewById(R.id.movie_rating)
+        val mDescriptionField: TextView = itemView.findViewById(R.id.movie_description)
+        val genres: ChipGroup = itemView.findViewById(R.id.movie_genre_chip)
 
     }
 }
