@@ -48,7 +48,7 @@ class MovieAdapter : PagedListAdapter<Result, MovieAdapter.MovieViewHolder>(
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         val result = getItem(position)
 
-        Glide.with(holder.mBackgroundImage.context).load(IMAGE_URL + IMAGE_SIZE_1 + result?.backdropPath).into(holder.mBackgroundImage)
+        Glide.with(holder.mBackgroundImage.context).load(getBackgroundImageUrl(result?.backdropPath,1)).into(holder.mBackgroundImage)
         holder.mTitleField.text = result?.title
         holder.mDescriptionField.text = result?.overview
         holder.mRatingBar.rating = result?.voteAverage?.toFloat()?.div(2) ?: 0.0f

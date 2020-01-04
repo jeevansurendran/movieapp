@@ -1,7 +1,6 @@
-package com.silverpants.movieapp
+package com.silverpants.movieapp.activity
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 
@@ -14,6 +13,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.silverpants.movieapp.DUMMY_IMAGE_LINK
+import com.silverpants.movieapp.FROZEN2
+import com.silverpants.movieapp.R
+import com.silverpants.movieapp.getBackgroundImageUrl
 import com.silverpants.movieapp.pojo.movie.Movie
 
 
@@ -79,8 +82,7 @@ class MovieActivity : AppCompatActivity() {
             mOriginalLanguage.text = movie.originalLanguage
             mBudget.text = movie.budget.toString()
             mRevenue.text = movie.revenue.toString()
-            Glide.with(this).load(getImageUrl(movie.backdropPath
-                    ?: DUMMY_IMAGE_LINK)).into(mBackgroundImage)
+            Glide.with(this).load(getBackgroundImageUrl(movie.backdropPath, 1)).into(mBackgroundImage)
         })
 
 
