@@ -26,12 +26,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
-        <fragment
-            android:id="@+id/movie_discover_fragment"
-            android:name="com.silverpants.movieapp.fragment.DiscoverFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
     </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
