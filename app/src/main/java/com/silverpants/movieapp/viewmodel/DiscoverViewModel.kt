@@ -1,6 +1,5 @@
 package com.silverpants.movieapp.viewmodel
 
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.paging.PagedList
@@ -14,6 +13,7 @@ class DiscoverViewModel : ViewModel() {
     private var retroFitRepository = RetroFitRepository
     var dataInvalidated = false
     var activeFragmentId: Int = R.id.movie_item_discover
+    private val fragmentBackTrackList = mutableListOf<Int>()
 
 
     private var discoverList: LiveData<PagedList<Result>> = retroFitRepository.discoverList
@@ -40,6 +40,21 @@ class DiscoverViewModel : ViewModel() {
         dataInvalidated = true
 
     }
+
+    fun addToBackTrack(id: Int) {
+        if (fragmentBackTrackList.contains(id)) {
+            fragmentBackTrackList.remove(id)
+        }
+        fragmentBackTrackList.add(id)
+    }
+
+    fun removeBackTrackLast() {
+        fragmentBackTrackList.removeAt(fragmentBackTrackList.lastIndex)
+    }
+
+    fun isBackTrackEmpty(): Boolean = fragmentBackTrackList.isNotEmpty()
+
+    fun lastBackTrackElement() = fragmentBackTrackList[fragmentBackTrackList.lastIndex]
 
 }
 
